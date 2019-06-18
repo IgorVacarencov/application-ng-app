@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
+import {AllUsers} from "./model/users";
 
 @Component({
   selector: 'app-users',
@@ -7,6 +8,7 @@ import {HttpClient} from "@angular/common/http";
   styleUrls: ['./users.component.css']
 })
 export class UsersComponent implements OnInit {
+  allUsers: AllUsers[] = [];
   model: UserViewModel = {
     fName:'',
     lName:'',
@@ -27,10 +29,23 @@ export class UsersComponent implements OnInit {
   }
 
 
+  public getUsers(){
+    let url = "http://localhost:8080/getUsers";
+    this.http.get<AllUsers[]>(url).subscribe(
+      res => {
+        this.allUsers = res;
+      },
+      err => {
+        alert ("Something goes wrong")
+      }
+    );
+  }
+
 
   constructor(private http: HttpClient) { }
 
   ngOnInit() {
+    this.getUsers()
   }
 
 }
