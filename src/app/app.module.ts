@@ -10,19 +10,22 @@ import { NotFoundComponent } from './not-found/not-found.component';
 import {Router, RouterModule, Routes} from "@angular/router";
 import {FormsModule} from "@angular/forms";
 import {HttpClientModule} from "@angular/common/http";
+import {TabModule} from "angular-tabs-component";
+
 
 const appRoutes :Routes = [
   {
     path:'users',
     component: UsersComponent
   },
+
   {
     path: 'places',
     component: PlacesComponent
   },
   {
     path:'',
-    component: UsersComponent,
+    component: NotFoundComponent,
     pathMatch:'full'
   },
   {
@@ -37,14 +40,16 @@ const appRoutes :Routes = [
     NavigationComponent,
     UsersComponent,
     PlacesComponent,
-    NotFoundComponent
+    NotFoundComponent,
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     FormsModule,
+
     AppRoutingModule,
-    RouterModule.forRoot(appRoutes, {enableTracing: true})
+    RouterModule.forRoot(appRoutes, {enableTracing: true}),
+    TabModule
   ],
   providers: [],
   bootstrap: [AppComponent]
