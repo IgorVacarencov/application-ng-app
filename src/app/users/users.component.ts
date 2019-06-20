@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
-import {AllUsers} from "./model/users";
+import {AllUsers, OneUser} from "./model/users";
 
 @Component({
   selector: 'app-users',
@@ -8,14 +8,21 @@ import {AllUsers} from "./model/users";
   styleUrls: ['./users.component.css']
 })
 export class UsersComponent implements OnInit {
+  oneUser: OneUser[] = [];
   allUsers: AllUsers[] = [];
+
+  searchModel: UserSearchModel = {
+    searchArgument:''
+  };
+
   model: UserViewModel = {
     fName:'',
     lName:'',
     age:''
   };
 
-  createUser(): void{
+ // createUser(): void{
+    public createUser(){
     let url = "http://localhost:8080/createUser";
     this.http.post(url, this.model).subscribe(
       res => {
@@ -27,6 +34,21 @@ export class UsersComponent implements OnInit {
       }
     );
   }
+
+    public getOneUser(){
+    let url = "http://localhost:8080/getOneUser";
+    this.http.post<OneUser[]>(url, this.searchModel).subscribe(
+      res => {
+
+        this.oneUser = res;
+      },
+      err => {
+        alert ("Nothing was found!")
+      }
+    )
+  }
+
+
 
 
   public getUsers(){
@@ -42,6 +64,7 @@ export class UsersComponent implements OnInit {
   }
 
 
+
   constructor(private http: HttpClient) { }
 
   ngOnInit() {
@@ -54,5 +77,8 @@ export interface UserViewModel {
 fName:string;
 lName:string;
 age:string;
+}
 
+export interface UserSearchModel {
+  searchArgument: string;
 }
