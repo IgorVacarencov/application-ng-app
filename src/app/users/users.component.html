@@ -227,7 +227,7 @@
                 <td>{{users.email}}</td>
                 <td>{{users.username}}</td>
                 <td>{{users.jobTitle}}</td>
-                <td>{{users.manager.fName}}</td>
+                <td>{{users.manager != null ? users.manager.fName : ''}}</td>
                 <td>{{users.role.name}}</td>
               </tr>
               </tbody>
