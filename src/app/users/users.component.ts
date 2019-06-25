@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
-import {AllUsers, OneUser} from "./model/users";
+import {AllUsers, OneUser, Role} from "./model/users";
 
 @Component({
   selector: 'app-users',
@@ -10,15 +10,27 @@ import {AllUsers, OneUser} from "./model/users";
 export class UsersComponent implements OnInit {
   oneUser: OneUser[] = [];
   allUsers: AllUsers[] = [];
+  allRoles: Role[] =[];
+
+
 
   searchModel: UserSearchModel = {
     searchArgument:''
   };
 
+  roleViewModel: RoleViewModel = {
+    id:'',
+    name:''
+  };
+
   model: UserViewModel = {
     fName:'',
     lName:'',
-    age:''
+    email:'',
+    username:'',
+    jobTitle:'',
+    manager:'',
+    role:''
   };
 
  // createUser(): void{
@@ -43,9 +55,21 @@ export class UsersComponent implements OnInit {
         this.oneUser = res;
       },
       err => {
-        alert ("Nothing was found!")
+        alert ("Couldn't perform searching. Something is going wrong in app!")
       }
     )
+  }
+
+  public  getRoles(){
+    let url = "http://localhost:8080/getRoles";
+    this.http.get<Role[]>(url).subscribe(
+      res => {
+        this.allRoles = res;
+      },
+      err => {
+        alert ("Something goes wrong with roles")
+      }
+    );
   }
 
 
@@ -64,21 +88,30 @@ export class UsersComponent implements OnInit {
   }
 
 
-
   constructor(private http: HttpClient) { }
 
   ngOnInit() {
     this.getUsers()
+    this.getRoles()
   }
 
 }
 
 export interface UserViewModel {
-fName:string;
-lName:string;
-age:string;
+  fName:string;
+  lName:string;
+  email:string;
+  username:string;
+  jobTitle:string;
+  manager:string;
+  role:string
 }
 
 export interface UserSearchModel {
   searchArgument: string;
+}
+
+export interface RoleViewModel {
+  id:string;
+  name:string
 }
