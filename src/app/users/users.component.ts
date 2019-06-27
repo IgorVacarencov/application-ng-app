@@ -1,40 +1,41 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {AllUsers, OneUser, Role} from "./model/users";
+
 
 @Component({
   selector: 'app-users',
   templateUrl: './users.component.html',
   styleUrls: ['./users.component.css']
 })
+
 export class UsersComponent implements OnInit {
   oneUser: OneUser[] = [];
   allUsers: AllUsers[] = [];
-  allRoles: Role[] =[];
-
+  allRoles: Role[] = [];
 
 
   searchModel: UserSearchModel = {
-    searchArgument:''
+    searchArgument: ''
   };
 
   roleViewModel: RoleViewModel = {
-    id:'',
-    name:''
+    id: '',
+    name: ''
   };
 
   model: UserViewModel = {
-    fName:'',
-    lName:'',
-    email:'',
-    username:'',
-    jobTitle:'',
-    manager:'',
-    role:''
+    fName: '',
+    lName: '',
+    email: '',
+    username: '',
+    jobTitle: '',
+    manager: '',
+    role: ''
   };
 
- // createUser(): void{
-    public createUser(){
+
+  public createUser() {
     let url = "http://localhost:8080/createUser";
     this.http.post(url, this.model).subscribe(
       res => {
@@ -47,7 +48,7 @@ export class UsersComponent implements OnInit {
     );
   }
 
-    public getOneUser(){
+  public getOneUser() {
     let url = "http://localhost:8080/getOneUser";
     this.http.post<OneUser[]>(url, this.searchModel).subscribe(
       res => {
@@ -55,40 +56,39 @@ export class UsersComponent implements OnInit {
         this.oneUser = res;
       },
       err => {
-        alert ("Couldn't perform searching. Something is going wrong in app!")
+        alert("Couldn't perform searching. Something is going wrong in app!")
       }
     )
   }
 
-  public  getRoles(){
+  public getRoles() {
     let url = "http://localhost:8080/getRoles";
     this.http.get<Role[]>(url).subscribe(
       res => {
         this.allRoles = res;
       },
       err => {
-        alert ("Something goes wrong with roles")
+        alert("Something goes wrong with roles")
       }
     );
   }
 
 
-
-
-  public getUsers(){
+  public getUsers() {
     let url = "http://localhost:8080/getUsers";
     this.http.get<AllUsers[]>(url).subscribe(
       res => {
         this.allUsers = res;
       },
       err => {
-        alert ("Something goes wrong")
+        alert("Something goes wrong")
       }
     );
   }
 
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+  }
 
   ngOnInit() {
     this.getUsers()
@@ -98,13 +98,13 @@ export class UsersComponent implements OnInit {
 }
 
 export interface UserViewModel {
-  fName:string;
-  lName:string;
-  email:string;
-  username:string;
-  jobTitle:string;
-  manager:string;
-  role:string
+  fName: string;
+  lName: string;
+  email: string;
+  username: string;
+  jobTitle: string;
+  manager: string;
+  role: string
 }
 
 export interface UserSearchModel {
@@ -112,6 +112,8 @@ export interface UserSearchModel {
 }
 
 export interface RoleViewModel {
-  id:string;
-  name:string
+  id: string;
+  name: string
 }
+
+

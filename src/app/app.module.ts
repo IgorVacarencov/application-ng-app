@@ -8,7 +8,7 @@ import { UsersComponent } from './users/users.component';
 import { PlacesComponent } from './places/places.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import {Router, RouterModule, Routes} from "@angular/router";
-import {FormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {HttpClientModule} from "@angular/common/http";
 import {TabModule} from "angular-tabs-component";
 
@@ -41,6 +41,7 @@ const appRoutes :Routes = [
     UsersComponent,
     PlacesComponent,
     NotFoundComponent,
+
   ],
   imports: [
     BrowserModule,
@@ -49,7 +50,8 @@ const appRoutes :Routes = [
 
     AppRoutingModule,
     RouterModule.forRoot(appRoutes, {enableTracing: true}),
-    TabModule
+    TabModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
