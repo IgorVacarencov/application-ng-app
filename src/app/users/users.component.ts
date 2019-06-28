@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {AllUsers, OneUser, Role} from "./model/users";
+import 'bootstrap/js/dist/modal';
 
 
 @Component({
@@ -36,7 +37,8 @@ export class UsersComponent implements OnInit {
 
 
   public createUser() {
-    let url = "http://localhost:8080/createUser";
+    // let url = "http://localhost:8080/createUser";
+    let url = "http://localhost:8085/createUser";
     this.http.post(url, this.model).subscribe(
       res => {
         alert("New employee was successfully created! \n Congratulations! ");
@@ -49,7 +51,7 @@ export class UsersComponent implements OnInit {
   }
 
   public getOneUser() {
-    let url = "http://localhost:8080/getOneUser";
+    let url = "http://localhost:8085/getOneUser";
     this.http.post<OneUser[]>(url, this.searchModel).subscribe(
       res => {
 
@@ -62,7 +64,7 @@ export class UsersComponent implements OnInit {
   }
 
   public getRoles() {
-    let url = "http://localhost:8080/getRoles";
+    let url = "http://localhost:8085/getRoles";
     this.http.get<Role[]>(url).subscribe(
       res => {
         this.allRoles = res;
@@ -75,7 +77,7 @@ export class UsersComponent implements OnInit {
 
 
   public getUsers() {
-    let url = "http://localhost:8080/getUsers";
+    let url = "http://localhost:8085/getUsers";
     this.http.get<AllUsers[]>(url).subscribe(
       res => {
         this.allUsers = res;
@@ -89,6 +91,7 @@ export class UsersComponent implements OnInit {
 
   constructor(private http: HttpClient) {
   }
+
 
   ngOnInit() {
     this.getUsers()
@@ -104,7 +107,7 @@ export interface UserViewModel {
   username: string;
   jobTitle: string;
   manager: string;
-  role: string
+  role: string;
 }
 
 export interface UserSearchModel {

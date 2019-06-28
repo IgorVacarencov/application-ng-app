@@ -132,13 +132,13 @@
 
         <div class="form-group">
           <th>Role</th>
-          <select
+          <select class="form-control"
             id="role"
             name="role"
             [(ngModel)]="model.role">
             <option
               *ngFor="let role of allRoles"
-              [ngValue]="role">
+              [ngValue]="role.id">
               {{role.name}}
             </option>
           </select>
@@ -147,13 +147,13 @@
 
         <div class="form-group">
           <th>Manager</th>
-          <select
+          <select class="form-control"
             id="manager"
             name="manager"
             [(ngModel)]="model.manager">
             <option
               *ngFor="let users of allUsers"
-              [ngValue]="users">
+              [ngValue]="users.id">
               <!--[ngValue]="users.fName + users.lName + users.username + users.email + users.jobTitle + users.manager + users.role">-->
               {{users.fName + " " + users.lName}}
             </option>
@@ -255,7 +255,8 @@
             <td>{{users.manager != null ? users.manager.fName : ''}}</td>
             <td>{{users.role.name}}</td>
             <td>
-              <button type="submit" class="btn btn-primary">Edit</button>
+              <!-- Button trigger modal -->
+              <button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#editModal">Edit</button>
             </td>
           </tr>
           <!--         <td><button (click)="deleteEmployee(employee.id)">Delete</button>-->
@@ -265,5 +266,54 @@
       </div>
     </div>
 
+    <!-- Modal -->
+    <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editUserModal" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="editUserModal">Edit the user</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <p>Here will be the edit module for existing user</p>
+
+
+
+            <div class="form-group">
+              <label for="firstName">
+                <th>First Name</th>
+              </label>
+              <input type="text"
+                     id="firstNameEdit"
+                     class="form-control"
+                     name="firstNameEdit"
+                     placeholder="Enter here your first name"
+                     [(ngModel)]="model.fName"
+                     #firstname="ngModel"
+                     [ngClass]="{'is invalid': f.submitted && firstname.invalid}"
+                     required/>
+            </div>
+
+
+
+
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary">Save changes</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+
   </tab>
+
+
 </tabs>
+
+
